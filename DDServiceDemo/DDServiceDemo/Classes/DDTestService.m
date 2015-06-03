@@ -42,13 +42,13 @@
         @"上海": @"101020100",
     };
     
-    NSString *wetherUrl = [NSString stringWithFormat:@"http://m.weather.com.cn/data/%@.html", cityCodeDict[service.parameters[@"city"]]];
+    NSString *wetherUrl = [NSString stringWithFormat:@"http://www.weather.com.cn/adat/sk/%@.html", cityCodeDict[service.parameters[@"city"]]];
     [service startChildService:_DDST([DDURLService class], @selector(sendRequest:))
                     parameters:@{DDURLSERVICE_URL: wetherUrl,}
                     completion:^(DDService *childService)
      {
          NSDictionary *json = [NSJSONSerialization JSONObjectWithData:childService.result[DDURLSERVICE_RESULT] options:NSJSONReadingMutableContainers error:NULL];
-         NSString *wether = json[@"weatherinfo"][@"img_title6"];
+         NSString *wether = json[@"weatherinfo"][@"WD"];
          service.result = @{@"result": wether};
      }];
 }
