@@ -32,3 +32,10 @@ Serial
 Normal
 	
 	根据经纬度反GEO当前城市的名称。
+	
+	
+## 注意事项
+
+ARC
+
+Custom Complier Flag: -fobjc-arc-exceptions 
