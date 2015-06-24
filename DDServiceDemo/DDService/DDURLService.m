@@ -28,15 +28,15 @@
 
 #import "DDURLService.h"
 
-NSString *const DDURLServiceURLKey = @"url";
-NSString *const DDURLServicePostParametersKey = @"postParameters";
-NSString *const DDURLServiceGetParametersKey = @"getParameters";
+NSString *const DDURLServiceURLKey = @"DDURLServiceURL";
+NSString *const DDURLServicePostParametersKey = @"DDURLServicePostParameters";
+NSString *const DDURLServiceGetParametersKey = @"DDURLServiceGetParameters";
 
-NSString *const DDURLServiceFilesArrayKey = @"filesArray";
-NSString *const DDURLServiceFileDataKey = @"data";
-NSString *const DDURLServiceFileFormNameKey = @"name";
-NSString *const DDURLServiceFileFileNameKey = @"fileName";
-NSString *const DDURLServiceFileContentTypeKey = @"contentType";
+NSString *const DDURLServiceFilesArrayKey = @"DDURLServiceFilesArray";
+NSString *const DDURLServiceFileDataKey = @"DDURLServiceFileData";
+NSString *const DDURLServiceFileFormNameKey = @"DDURLServiceFileFormName";
+NSString *const DDURLServiceFileFileNameKey = @"DDURLServiceFileFileName";
+NSString *const DDURLServiceFileContentTypeKey = @"DDURLServiceFileContentType";
 
 static NSString *const DDURLServiceHTTPMethodGet = @"GET";
 static NSString *const DDURLServiceHTTPMethodPost = @"POST";
