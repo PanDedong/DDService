@@ -1,12 +1,12 @@
 //
 //  DDService.h
 //
-//  Created by Pan,Dedong on 13-10-9.
+//  Created by Pan,Dedong
 //  Version 1.0.0
 
 //  This code is distributed under the terms and conditions of the MIT license.
 
-//  Copyright (c) 2013-2014 Pan,Dedong
+//  Copyright (c) 2013 Pan,Dedong <dedong.pan@gmail.com>
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -28,13 +28,14 @@
 
 #import <Foundation/Foundation.h>
 
-#define _DDST(class,SEL) [DDService typeForClass:(class) selector:(SEL)]
-#define DDSERVICE_RESULT @"RESULT"
-
 typedef NS_ENUM(NSInteger, DDServiceStatus) {
     DDServiceStatusFinished,
     DDServiceStatusFailed,
 };
+
+FOUNDATION_EXPORT NSString *const DDServiceResultKey;
+
+FOUNDATION_EXPORT NSString *DDServiceTypeMake(Class aClass, SEL aSelector);
 
 @interface DDService : NSObject
 
@@ -43,8 +44,6 @@ typedef NS_ENUM(NSInteger, DDServiceStatus) {
 @property (strong, nonatomic) NSDictionary *result;
 @property (assign, nonatomic) DDServiceStatus status;
 @property (strong, nonatomic) NSString *statusMsg;
-
-+ (NSString *)typeForClass:(Class)aClass selector:(SEL)selector;
 
 + (void)addResponder:(id)responder selector:(SEL)selector forService:(NSString *)type;
 

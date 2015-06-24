@@ -84,11 +84,11 @@
     self.navigationItem.rightBarButtonItem.enabled = NO;
     
     //测试两次请求的 自动取消上一次的
-    [DDService startAsyncService:_DDST([DDTestService class], @selector(getCitiesWether:))
+    [DDService startAsyncService:DDServiceTypeMake([DDTestService class], @selector(getCitiesWether:))
                       parameters:@{@"locations": @[Location_BeiJing, Location_GuangZhou, Location_ShangHai]}
                           target:self
                         selector:@selector(simulateConcurrentResponse:)];
-    [DDService startAsyncService:_DDST([DDTestService class], @selector(getCitiesWether:))
+    [DDService startAsyncService:DDServiceTypeMake([DDTestService class], @selector(getCitiesWether:))
                       parameters:@{@"locations": @[Location_BeiJing, Location_GuangZhou, Location_ShangHai]}
                           target:self
                         selector:@selector(simulateConcurrentResponse:)];
@@ -98,7 +98,7 @@
     self.navigationItem.rightBarButtonItem.title = @"发送请求";
     self.navigationItem.rightBarButtonItem.enabled = YES;
     if (service.status == DDServiceStatusFinished) {
-        self.resultLbl.text = [service.result[DDSERVICE_RESULT] componentsJoinedByString:@"\n"];
+        self.resultLbl.text = [service.result[DDServiceResultKey] componentsJoinedByString:@"\n"];
         self.resultLbl.hidden = NO;
     }
 }
@@ -109,11 +109,11 @@
 {
     self.navigationItem.rightBarButtonItem.title = @"发送中...";
     self.navigationItem.rightBarButtonItem.enabled = NO;
-    [DDService startAsyncService:_DDST([DDTestService class], @selector(getWetherWithLocation:))
+    [DDService startAsyncService:DDServiceTypeMake([DDTestService class], @selector(getWetherWithLocation:))
                       parameters:@{@"location":Location_BeiJing}
                           target:self
                         selector:@selector(simulateSerialResponse:)];
-    [DDService startAsyncService:_DDST([DDTestService class], @selector(getWetherWithLocation:))
+    [DDService startAsyncService:DDServiceTypeMake([DDTestService class], @selector(getWetherWithLocation:))
                       parameters:@{@"location":Location_BeiJing}
                           target:self
                         selector:@selector(simulateSerialResponse:)];
@@ -136,7 +136,7 @@
 {
     self.navigationItem.rightBarButtonItem.title = @"发送中...";
     self.navigationItem.rightBarButtonItem.enabled = NO;
-    [DDService startAsyncService:_DDST([DDTestService class], @selector(reverseGeocodeLocation:))
+    [DDService startAsyncService:DDServiceTypeMake([DDTestService class], @selector(reverseGeocodeLocation:))
                       parameters:@{@"location":Location_BeiJing}
                           target:self
                         selector:@selector(simulateNormalResponse:)];

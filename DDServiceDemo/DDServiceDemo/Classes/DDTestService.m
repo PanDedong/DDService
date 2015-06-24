@@ -17,9 +17,9 @@
 + (void)reverseGeocodeLocation:(DDService *)service
 {
     NSString *location = service.parameters[@"location"];
-    [service startChildService:_DDST([DDURLService class], @selector(sendRequest:))
-                    parameters:@{DDURLSERVICE_URL: BDMap_Geo_Url,
-                                 DDURLSERVICE_GET_PARAMETERS: @{
+    [service startChildService:DDServiceTypeMake([DDURLService class], @selector(sendRequest:))
+                    parameters:@{DDURLServiceURLKey: BDMap_Geo_Url,
+                                 DDURLServiceGetParametersKey: @{
                                          @"location": location,
                                          @"coord_type": @"gcj02",
                                          @"output": @"json",
@@ -27,7 +27,7 @@
                                  }
                     completion:^(DDService *childService)
      {
-         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:childService.result[DDURLSERVICE_RESULT] options:NSJSONReadingMutableContainers error:NULL];
+         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:childService.result[DDServiceResultKey] options:NSJSONReadingMutableContainers error:NULL];
          NSString *city = json[@"result"][@"addressComponent"][@"city"];
          city = [city stringByReplacingOccurrencesOfString:@"市" withString:@""];
          service.result = @{@"result":city};
@@ -43,11 +43,11 @@
     };
     
     NSString *wetherUrl = [NSString stringWithFormat:@"http://www.weather.com.cn/adat/sk/%@.html", cityCodeDict[service.parameters[@"city"]]];
-    [service startChildService:_DDST([DDURLService class], @selector(sendRequest:))
-                    parameters:@{DDURLSERVICE_URL: wetherUrl,}
+    [service startChildService:DDServiceTypeMake([DDURLService class], @selector(sendRequest:))
+                    parameters:@{DDURLServiceURLKey: wetherUrl,}
                     completion:^(DDService *childService)
      {
-         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:childService.result[DDURLSERVICE_RESULT] options:NSJSONReadingMutableContainers error:NULL];
+         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:childService.result[DDServiceResultKey] options:NSJSONReadingMutableContainers error:NULL];
          NSString *wether = json[@"weatherinfo"][@"WD"];
          service.result = @{@"result": wether};
      }];
@@ -55,12 +55,12 @@
 
 + (void)getWetherWithLocation:(DDService *)service
 {
-    [service startChildService:_DDST([DDTestService class], @selector(reverseGeocodeLocation:))
+    [service startChildService:DDServiceTypeMake([DDTestService class], @selector(reverseGeocodeLocation:))
                     parameters:service.parameters
                     completion:^(DDService *childService)
      {
          NSString *city = childService.result[@"result"];
-         [service startChildService:_DDST([DDTestService class], @selector(getWetherWithCity:))
+         [service startChildService:DDServiceTypeMake([DDTestService class], @selector(getWetherWithCity:))
                          parameters:@{@"city":city}
                          completion:^(DDService *childService)
           {
@@ -76,7 +76,7 @@
     NSLock *lock = [[NSLock alloc] init];
     
     for (NSString *location in service.parameters[@"locations"]) {
-        [service startAsyncChildService:_DDST([DDTestService class], @selector(getWetherWithLocation:))
+        [service startAsyncChildService:DDServiceTypeMake([DDTestService class], @selector(getWetherWithLocation:))
                              parameters:@{@"location": location}
                              completion:^(DDService *childService)
          {
@@ -89,7 +89,7 @@
     
     [service completionedAllAsyncChildServicesNotify:^{
         service.status = DDServiceStatusFinished;
-        service.result = @{DDSERVICE_RESULT: cityWetherArray};
+        service.result = @{DDServiceResultKey: cityWetherArray};
     }];
 }
 

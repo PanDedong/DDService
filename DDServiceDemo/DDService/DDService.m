@@ -1,12 +1,12 @@
 //
 //  DDService.m
 //
-//  Created by Pan,Dedong on 13-10-9.
+//  Created by Pan,Dedong
 //  Version 1.0.0
 
 //  This code is distributed under the terms and conditions of the MIT license.
 
-//  Copyright (c) 2013-2014 Pan,Dedong
+//  Copyright (c) 2013 Pan,Dedong <dedong.pan@gmail.com>
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -30,10 +30,25 @@
 #import <objc/message.h>
 #import <objc/runtime.h>
 
-#define _DDClass(serviceType) [DDService classFromServiceType:(serviceType)]
-#define _DDSEL(serviceType) [DDService selectorFromServiceType:(serviceType)]
 #define DDSERVICE_EXCEPTION_NAME_FAIL   @"DDService_exception_name_fail"
 #define DDSERVICE_EXCEPTION_NAME_CANCEL @"DDService_exception_name_cancel"
+
+NSString *const DDServiceResultKey = @"RESULT";
+
+NSString *DDServiceTypeMake(Class aClass, SEL aSelector) {
+    assert([aClass respondsToSelector:aSelector]);
+    return [NSStringFromClass(aClass) stringByAppendingFormat:@".%@",NSStringFromSelector(aSelector)];
+}
+
+Class NSClassFromDDServiceType(NSString *type) {
+    NSString *classString = [type componentsSeparatedByString:@"."].firstObject;
+    return NSClassFromString(classString);
+}
+
+SEL NSSelectorFromDDServiceType(NSString *type) {
+    NSString *selectorString = [type componentsSeparatedByString:@"."].lastObject;
+    return NSSelectorFromString(selectorString);
+}
 
 @interface NSException (DDService)
 
@@ -61,9 +76,6 @@
 @property (weak, nonatomic) DDService *parentService;
 @property (strong, nonatomic) dispatch_group_t childServicesGroup;
 @property (strong, nonatomic) NSException *childException;
-
-+ (Class)classFromServiceType:(NSString *)type;
-+ (SEL)selectorFromServiceType:(NSString *)type;
 
 @end
 
@@ -222,21 +234,6 @@
     return self;
 }
 
-+ (Class)classFromServiceType:(NSString *)type {
-    NSString *classString = [type componentsSeparatedByString:@"."].firstObject;
-    return NSClassFromString(classString);
-}
-
-+ (SEL)selectorFromServiceType:(NSString *)type {
-    NSString *selectorString = [type componentsSeparatedByString:@"."].lastObject;
-    return NSSelectorFromString(selectorString);
-}
-
-+ (NSString *)typeForClass:(Class)aClass selector:(SEL)selector {
-    NSAssert([aClass respondsToSelector:selector], @"%@ did not responds to%@", NSStringFromClass(aClass), NSStringFromSelector(selector));
-    return [NSStringFromClass(aClass) stringByAppendingFormat:@".%@",NSStringFromSelector(selector)];
-}
-
 #pragma mark - DDService Public method
 
 + (void)addResponder:(id)responder selector:(SEL)selector forService:(NSString *)type {
@@ -245,7 +242,7 @@
 
 + (void)cancelService:(NSString *)type target:(id)target {
     if (target) {
-        objc_setAssociatedObject(target, class_getClassMethod(_DDClass(type), _DDSEL(type)), nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        objc_setAssociatedObject(target, class_getClassMethod(NSClassFromDDServiceType(type), NSSelectorFromDDServiceType(type)), nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
 }
 
@@ -297,7 +294,7 @@
     if (target) {
         DDServiceRunner *runner = [[DDServiceRunner alloc] init];
         runner.service = service;
-        objc_setAssociatedObject(target, class_getClassMethod(_DDClass(type), _DDSEL(type)), runner, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        objc_setAssociatedObject(target, class_getClassMethod(NSClassFromDDServiceType(type), NSSelectorFromDDServiceType(type)), runner, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     
     id __weak weakTarget = target;
@@ -307,7 +304,7 @@
 
         id __strong strongTarget = weakTarget;
         if (strongTarget) {
-            objc_setAssociatedObject(strongTarget, class_getClassMethod(_DDClass(type), _DDSEL(type)), nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(strongTarget, class_getClassMethod(NSClassFromDDServiceType(type), NSSelectorFromDDServiceType(type)), nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             if (![[DDServiceCenter defaultCenter] existComplectionForServiceWithType:type target:strongTarget selector:selector]) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     ((void (*)(id, SEL, id))objc_msgSend)(strongTarget, selector, service);
@@ -419,7 +416,7 @@
                 @throw exception;
             }
             
-            ((void (*)(id, SEL, id))objc_msgSend)(_DDClass(service.type), _DDSEL(service.type), service);
+            ((void (*)(id, SEL, id))objc_msgSend)(NSClassFromDDServiceType(service.type), NSSelectorFromDDServiceType(service.type), service);
             if (service.childServicesGroup) {
                 dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
                 dispatch_group_notify(service.childServicesGroup, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
