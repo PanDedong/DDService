@@ -36,7 +36,7 @@
 NSString *const DDServiceResultKey = @"RESULT";
 
 NSString *DDServiceTypeMake(Class aClass, SEL aSelector) {
-    assert([aClass respondsToSelector:aSelector]);
+     NSCAssert([aClass respondsToSelector:aSelector], @"%@ did not responds to%@", NSStringFromClass(aClass), NSStringFromSelector(aSelector));
     return [NSStringFromClass(aClass) stringByAppendingFormat:@".%@",NSStringFromSelector(aSelector)];
 }
 
