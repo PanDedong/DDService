@@ -8,7 +8,6 @@
 
 #import "DDTestService.h"
 #import "DDService.h"
-#import "DDURLService.h"
 
 #define BDMap_Geo_Url @"http://api.map.baidu.com/geocoder"
 
@@ -17,9 +16,9 @@
 + (void)reverseGeocodeLocation:(DDService *)service
 {
     NSString *location = service.parameters[@"location"];
-    [service startChildService:DDServiceTypeMake([DDURLService class], @selector(sendRequest:))
-                    parameters:@{DDURLServiceURLKey: BDMap_Geo_Url,
-                                 DDURLServiceGetParametersKey: @{
+    [service startChildService:DDServiceTypeMake([DDService class], @selector(sendURLRequest:))
+                    parameters:@{DDServiceURLKey: BDMap_Geo_Url,
+                                 DDServiceGetParametersKey: @{
                                          @"location": location,
                                          @"coord_type": @"gcj02",
                                          @"output": @"json",
@@ -43,8 +42,8 @@
     };
     
     NSString *wetherUrl = [NSString stringWithFormat:@"http://www.weather.com.cn/adat/sk/%@.html", cityCodeDict[service.parameters[@"city"]]];
-    [service startChildService:DDServiceTypeMake([DDURLService class], @selector(sendRequest:))
-                    parameters:@{DDURLServiceURLKey: wetherUrl,}
+    [service startChildService:DDServiceTypeMake([DDService class], @selector(sendURLRequest:))
+                    parameters:@{DDServiceURLKey: wetherUrl,}
                     completion:^(DDService *childService)
      {
          NSDictionary *json = [NSJSONSerialization JSONObjectWithData:childService.result[DDServiceResultKey] options:NSJSONReadingMutableContainers error:NULL];

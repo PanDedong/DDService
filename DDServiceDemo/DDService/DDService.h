@@ -2,7 +2,7 @@
 //  DDService.h
 //
 //  Created by Pan,Dedong
-//  Version 1.0.0
+//  Version 1.1.0
 
 //  This code is distributed under the terms and conditions of the MIT license.
 

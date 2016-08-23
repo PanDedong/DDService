@@ -7,45 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BA14C6971D6C274900686F3E /* DDService+Network.m in Sources */ = {isa = PBXBuildFile; fileRef = BA14C6961D6C274900686F3E /* DDService+Network.m */; };
 		BA59B9611B1F027000EBB7BE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BA59B9601B1F027000EBB7BE /* main.m */; };
 		BA59B9641B1F027000EBB7BE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BA59B9631B1F027000EBB7BE /* AppDelegate.m */; };
 		BA59B96A1B1F027000EBB7BE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA59B9681B1F027000EBB7BE /* Main.storyboard */; };
-		BA59B96C1B1F027000EBB7BE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA59B96B1B1F027000EBB7BE /* Images.xcassets */; };
 		BA59B96F1B1F027000EBB7BE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA59B96D1B1F027000EBB7BE /* LaunchScreen.xib */; };
-		BA59B97B1B1F027000EBB7BE /* DDServiceDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BA59B97A1B1F027000EBB7BE /* DDServiceDemoTests.m */; };
 		BA59B9891B1F02AB00EBB7BE /* DDService.m in Sources */ = {isa = PBXBuildFile; fileRef = BA59B9861B1F02AB00EBB7BE /* DDService.m */; };
-		BA59B98A1B1F02AB00EBB7BE /* DDURLService.m in Sources */ = {isa = PBXBuildFile; fileRef = BA59B9881B1F02AB00EBB7BE /* DDURLService.m */; };
 		BA59B9921B1F02D900EBB7BE /* DDServiceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BA59B98D1B1F02D900EBB7BE /* DDServiceVC.m */; };
 		BA59B9931B1F02D900EBB7BE /* DDTestService.m in Sources */ = {isa = PBXBuildFile; fileRef = BA59B98F1B1F02D900EBB7BE /* DDTestService.m */; };
 		BA59B9941B1F02D900EBB7BE /* DDTestServiceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BA59B9911B1F02D900EBB7BE /* DDTestServiceVC.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		BA59B9751B1F027000EBB7BE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BA59B9531B1F027000EBB7BE /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = BA59B95A1B1F027000EBB7BE;
-			remoteInfo = DDServiceDemo;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
+		BA14C6951D6C274900686F3E /* DDService+Network.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DDService+Network.h"; sourceTree = "<group>"; };
+		BA14C6961D6C274900686F3E /* DDService+Network.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DDService+Network.m"; sourceTree = "<group>"; };
 		BA59B95B1B1F027000EBB7BE /* DDServiceDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DDServiceDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA59B95F1B1F027000EBB7BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA59B9601B1F027000EBB7BE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BA59B9621B1F027000EBB7BE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BA59B9631B1F027000EBB7BE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		BA59B9691B1F027000EBB7BE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		BA59B96B1B1F027000EBB7BE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BA59B96E1B1F027000EBB7BE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		BA59B9741B1F027000EBB7BE /* DDServiceDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DDServiceDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		BA59B9791B1F027000EBB7BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BA59B97A1B1F027000EBB7BE /* DDServiceDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDServiceDemoTests.m; sourceTree = "<group>"; };
 		BA59B9851B1F02AB00EBB7BE /* DDService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDService.h; sourceTree = "<group>"; };
 		BA59B9861B1F02AB00EBB7BE /* DDService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDService.m; sourceTree = "<group>"; };
-		BA59B9871B1F02AB00EBB7BE /* DDURLService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDURLService.h; sourceTree = "<group>"; };
-		BA59B9881B1F02AB00EBB7BE /* DDURLService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDURLService.m; sourceTree = "<group>"; };
 		BA59B98C1B1F02D900EBB7BE /* DDServiceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDServiceVC.h; sourceTree = "<group>"; };
 		BA59B98D1B1F02D900EBB7BE /* DDServiceVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDServiceVC.m; sourceTree = "<group>"; };
 		BA59B98E1B1F02D900EBB7BE /* DDTestService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTestService.h; sourceTree = "<group>"; };
@@ -62,13 +46,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BA59B9711B1F027000EBB7BE /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -76,7 +53,6 @@
 			isa = PBXGroup;
 			children = (
 				BA59B95D1B1F027000EBB7BE /* DDServiceDemo */,
-				BA59B9771B1F027000EBB7BE /* DDServiceDemoTests */,
 				BA59B95C1B1F027000EBB7BE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -85,7 +61,6 @@
 			isa = PBXGroup;
 			children = (
 				BA59B95B1B1F027000EBB7BE /* DDServiceDemo.app */,
-				BA59B9741B1F027000EBB7BE /* DDServiceDemoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -98,7 +73,6 @@
 				BA59B9621B1F027000EBB7BE /* AppDelegate.h */,
 				BA59B9631B1F027000EBB7BE /* AppDelegate.m */,
 				BA59B9681B1F027000EBB7BE /* Main.storyboard */,
-				BA59B96B1B1F027000EBB7BE /* Images.xcassets */,
 				BA59B96D1B1F027000EBB7BE /* LaunchScreen.xib */,
 				BA59B95E1B1F027000EBB7BE /* Supporting Files */,
 			);
@@ -114,30 +88,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		BA59B9771B1F027000EBB7BE /* DDServiceDemoTests */ = {
-			isa = PBXGroup;
-			children = (
-				BA59B97A1B1F027000EBB7BE /* DDServiceDemoTests.m */,
-				BA59B9781B1F027000EBB7BE /* Supporting Files */,
-			);
-			path = DDServiceDemoTests;
-			sourceTree = "<group>";
-		};
-		BA59B9781B1F027000EBB7BE /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				BA59B9791B1F027000EBB7BE /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		BA59B9841B1F02AB00EBB7BE /* DDService */ = {
 			isa = PBXGroup;
 			children = (
 				BA59B9851B1F02AB00EBB7BE /* DDService.h */,
 				BA59B9861B1F02AB00EBB7BE /* DDService.m */,
-				BA59B9871B1F02AB00EBB7BE /* DDURLService.h */,
-				BA59B9881B1F02AB00EBB7BE /* DDURLService.m */,
+				BA14C6951D6C274900686F3E /* DDService+Network.h */,
+				BA14C6961D6C274900686F3E /* DDService+Network.m */,
 			);
 			path = DDService;
 			sourceTree = SOURCE_ROOT;
@@ -175,39 +132,17 @@
 			productReference = BA59B95B1B1F027000EBB7BE /* DDServiceDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		BA59B9731B1F027000EBB7BE /* DDServiceDemoTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = BA59B9811B1F027000EBB7BE /* Build configuration list for PBXNativeTarget "DDServiceDemoTests" */;
-			buildPhases = (
-				BA59B9701B1F027000EBB7BE /* Sources */,
-				BA59B9711B1F027000EBB7BE /* Frameworks */,
-				BA59B9721B1F027000EBB7BE /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				BA59B9761B1F027000EBB7BE /* PBXTargetDependency */,
-			);
-			name = DDServiceDemoTests;
-			productName = DDServiceDemoTests;
-			productReference = BA59B9741B1F027000EBB7BE /* DDServiceDemoTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		BA59B9531B1F027000EBB7BE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = panda;
 				TargetAttributes = {
 					BA59B95A1B1F027000EBB7BE = {
 						CreatedOnToolsVersion = 6.3.2;
-					};
-					BA59B9731B1F027000EBB7BE = {
-						CreatedOnToolsVersion = 6.3.2;
-						TestTargetID = BA59B95A1B1F027000EBB7BE;
 					};
 				};
 			};
@@ -225,7 +160,6 @@
 			projectRoot = "";
 			targets = (
 				BA59B95A1B1F027000EBB7BE /* DDServiceDemo */,
-				BA59B9731B1F027000EBB7BE /* DDServiceDemoTests */,
 			);
 		};
 /* End PBXProject section */
@@ -237,14 +171,6 @@
 			files = (
 				BA59B96A1B1F027000EBB7BE /* Main.storyboard in Resources */,
 				BA59B96F1B1F027000EBB7BE /* LaunchScreen.xib in Resources */,
-				BA59B96C1B1F027000EBB7BE /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		BA59B9721B1F027000EBB7BE /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,31 +183,15 @@
 			files = (
 				BA59B9891B1F02AB00EBB7BE /* DDService.m in Sources */,
 				BA59B9941B1F02D900EBB7BE /* DDTestServiceVC.m in Sources */,
-				BA59B98A1B1F02AB00EBB7BE /* DDURLService.m in Sources */,
 				BA59B9641B1F027000EBB7BE /* AppDelegate.m in Sources */,
+				BA14C6971D6C274900686F3E /* DDService+Network.m in Sources */,
 				BA59B9931B1F02D900EBB7BE /* DDTestService.m in Sources */,
 				BA59B9611B1F027000EBB7BE /* main.m in Sources */,
 				BA59B9921B1F02D900EBB7BE /* DDServiceVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BA59B9701B1F027000EBB7BE /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				BA59B97B1B1F027000EBB7BE /* DDServiceDemoTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		BA59B9761B1F027000EBB7BE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = BA59B95A1B1F027000EBB7BE /* DDServiceDemo */;
-			targetProxy = BA59B9751B1F027000EBB7BE /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		BA59B9681B1F027000EBB7BE /* Main.storyboard */ = {
@@ -324,6 +234,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -387,10 +298,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				INFOPLIST_FILE = DDServiceDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_CFLAGS = "-fobjc-arc-exceptions";
+				PRODUCT_BUNDLE_IDENTIFIER = "place.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -399,45 +312,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				INFOPLIST_FILE = DDServiceDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_CFLAGS = "-fobjc-arc-exceptions";
+				PRODUCT_BUNDLE_IDENTIFIER = "place.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		BA59B9821B1F027000EBB7BE /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = DDServiceDemoTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DDServiceDemo.app/DDServiceDemo";
-			};
-			name = Debug;
-		};
-		BA59B9831B1F027000EBB7BE /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = DDServiceDemoTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DDServiceDemo.app/DDServiceDemo";
 			};
 			name = Release;
 		};
@@ -460,14 +341,7 @@
 				BA59B9801B1F027000EBB7BE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-		};
-		BA59B9811B1F027000EBB7BE /* Build configuration list for PBXNativeTarget "DDServiceDemoTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				BA59B9821B1F027000EBB7BE /* Debug */,
-				BA59B9831B1F027000EBB7BE /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

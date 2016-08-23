@@ -2,7 +2,7 @@
 //  DDService.m
 //
 //  Created by Pan,Dedong
-//  Version 1.0.0
+//  Version 1.1.0
 
 //  This code is distributed under the terms and conditions of the MIT license.
 
@@ -30,8 +30,8 @@
 #import <objc/message.h>
 #import <objc/runtime.h>
 
-#define DDSERVICE_EXCEPTION_NAME_FAIL   @"DDService_exception_name_fail"
-#define DDSERVICE_EXCEPTION_NAME_CANCEL @"DDService_exception_name_cancel"
+static NSString *const DDServiceExceptionNameFail = @"DDServiceExceptionNameFail";
+static NSString *const DDServiceExceptionNameCancel = @"DDServiceExceptionNameCancel";
 
 NSString *const DDServiceResultKey = @"RESULT";
 
@@ -59,13 +59,7 @@ SEL NSSelectorFromDDServiceType(NSString *type) {
 @implementation NSException (DDService)
 
 - (BOOL)isDDServiceException {
-    BOOL isDDserviceException = NO;
-    if ([self.name isEqualToString:DDSERVICE_EXCEPTION_NAME_FAIL] ||
-        [self.name isEqualToString:DDSERVICE_EXCEPTION_NAME_CANCEL])
-    {
-        isDDserviceException = YES;
-    }
-    return isDDserviceException;
+    return ([self.name isEqualToString:DDServiceExceptionNameFail] || [self.name isEqualToString:DDServiceExceptionNameCancel]);
 }
 
 @end
@@ -134,7 +128,7 @@ SEL NSSelectorFromDDServiceType(NSString *type) {
 - (void)addResponder:(id)responder selector:(SEL)selector forService:(NSString *)type {
     if (![responder respondsToSelector:selector]) return;
     
-    dispatch_async(_mySerialQueue, ^{
+    dispatch_sync(_mySerialQueue, ^{
         NSPredicate *filterPredicate = [NSPredicate predicateWithFormat:@"serviceType == %@ AND target == %@ AND selectorString == %@",type,responder,NSStringFromSelector(selector)];
         NSArray *array = [_completionsArray filteredArrayUsingPredicate:filterPredicate];
         if (array.count > 0) return;
@@ -370,10 +364,12 @@ SEL NSSelectorFromDDServiceType(NSString *type) {
     service.type = type;
     service.parameters = parameters;
     service.parentService = self;
-    
+
     dispatch_group_async(self.childServicesGroup, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         [DDService tryStartService:service];
-        if (completion) completion(service);
+        if (service.status == DDServiceStatusFinished) {
+            if (completion) completion(service);
+        }
     });
 }
 
@@ -386,7 +382,6 @@ SEL NSSelectorFromDDServiceType(NSString *type) {
     dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
     if (block) block();
     self.childServicesGroup = nil;
-    if (self.childException) @throw self.childException;
 }
 
 - (void)failedWithMsg:(NSString *)msg {
@@ -394,7 +389,7 @@ SEL NSSelectorFromDDServiceType(NSString *type) {
     rootService.statusMsg = msg;
     rootService.status = DDServiceStatusFailed;
     rootService.result = self.result;
-    NSException *exception = [[NSException alloc] initWithName:DDSERVICE_EXCEPTION_NAME_FAIL reason:msg userInfo:nil];
+    NSException *exception = [[NSException alloc] initWithName:DDServiceExceptionNameFail reason:msg userInfo:nil];
     @throw exception;
 }
 
@@ -402,54 +397,51 @@ SEL NSSelectorFromDDServiceType(NSString *type) {
 
 - (DDService *)rootService {
     DDService *rootService = self;
-    while (rootService.parentService) {
+    // 异步子service出现异常的时候不会直接fail整个serivce，而是该异步子service fail。
+    while (rootService.parentService && !rootService.parentService.childServicesGroup) {
         rootService = rootService.parentService;
     }
     return rootService;
 }
 
 + (void)tryStartService:(DDService *)service {
-    @autoreleasepool {
-        @try {
-            if ([service rootService].wantCancel) {
-                NSException *exception = [[NSException alloc] initWithName:DDSERVICE_EXCEPTION_NAME_CANCEL reason:nil userInfo:nil];
-                @throw exception;
-            }
-            
-            ((void (*)(id, SEL, id))objc_msgSend)(NSClassFromDDServiceType(service.type), NSSelectorFromDDServiceType(service.type), service);
-            if (service.childServicesGroup) {
-                dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-                dispatch_group_notify(service.childServicesGroup, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-                    dispatch_semaphore_signal(semaphore);
-                });
-                dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-                service.childServicesGroup = nil;
-                if (service.childException) @throw service.childException;
-            }
+    @try {
+        if ([service rootService].wantCancel) {
+            NSException *exception = [[NSException alloc] initWithName:DDServiceExceptionNameCancel reason:nil userInfo:nil];
+            @throw exception;
         }
-        @catch (NSException *exception) {
-#ifdef DEBUG
-            if (![exception isDDServiceException]) {
-                NSLog(@"\n***************\nCaught exception when %@\n%@\n*******************",service.type, exception);
+        
+        ((void (*)(id, SEL, id))objc_msgSend)(NSClassFromDDServiceType(service.type), NSSelectorFromDDServiceType(service.type), service);
+        if (service.childServicesGroup) {
+            dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+            dispatch_group_notify(service.childServicesGroup, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+                dispatch_semaphore_signal(semaphore);
+            });
+            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+            service.childServicesGroup = nil;
+        }
+    }
+    @catch (NSException *exception) {
+    #ifdef DEBUG
+        if (![exception isDDServiceException]) {
+            NSLog(@"\n***************\nCaught exception when %@\n%@\n*******************",service.type, exception);
 
-            }
-#endif
+        }
+    #endif
+        
+        if (service.parentService){
+            if (service.parentService.childServicesGroup) { return; }
             
-            if (service.parentService){
-                if (service.parentService.childServicesGroup) {
-                    service.parentService.childException = exception;
-                }
-                else if (![exception isDDServiceException]){
-                    NSException *failException = [[NSException alloc] initWithName:DDSERVICE_EXCEPTION_NAME_FAIL reason:nil userInfo:nil];
-                    @throw failException;
-                }
-                else {
-                    @throw exception;
-                }
+            if (![exception isDDServiceException]){
+                NSException *failException = [[NSException alloc] initWithName:DDServiceExceptionNameFail reason:nil userInfo:nil];
+                @throw failException;
             }
             else {
-                service.status = DDServiceStatusFailed;
+                @throw exception;
             }
+        }
+        else {
+            service.status = DDServiceStatusFailed;
         }
     }
 }

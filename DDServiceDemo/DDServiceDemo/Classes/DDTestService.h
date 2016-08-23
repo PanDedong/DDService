@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "DDService.h"
-#import "DDURLService.h"
+#import "DDService+Network.h"
 
 @interface DDTestService : NSObject
 
