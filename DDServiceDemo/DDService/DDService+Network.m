@@ -30,7 +30,6 @@
 #import <objc/message.h>
 
 NSString *const DDServiceURLKey = @"DDServiceURLKey";
-NSString *const DDServiceOriginalURLKey = @"DDServiceOriginalURLKey";
 NSString *const DDServiceHTTPMethodKey = @"DDServiceHTTPMethodKey";
 NSString *const DDServiceHTTPMethodGet = @"GET";
 NSString *const DDServiceHTTPMethodPost = @"POST";

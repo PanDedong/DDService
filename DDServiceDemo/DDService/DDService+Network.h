@@ -29,7 +29,6 @@
 #import "DDService.h"
 
 FOUNDATION_EXPORT NSString *const DDServiceURLKey;
-FOUNDATION_EXPORT NSString *const DDServiceOriginalURLKey;
 FOUNDATION_EXPORT NSString *const DDServiceHTTPMethodKey;
 FOUNDATION_EXPORT NSString *const DDServiceHTTPMethodGet;
 FOUNDATION_EXPORT NSString *const DDServiceHTTPMethodPost;
